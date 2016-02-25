@@ -12,10 +12,25 @@
     "express": "~4.13.1",
     "jade": "~1.11.0",
     "morgan": "~1.6.1",
-    "serve-favicon": "~2.3.0"
+    "serve-favicon": "~2.3.0",
+    "bcryptjs": ">=2.0.2",
+    "express-jwt": "^0.3.1",
+    "express-unless": "*",
+    "jsonwebtoken": "^0.4.1",
+    "lodash": "~2.4.1",
+    "mongoose": "~4.4.5",
+    "on-finished": "^2.1.0",
+    "karma": "0.13.21",
+    "jasmine": "2.4.1",
+    "jquery": "2.2.1",
+    "bootstrap":"3.3.6",
+    "angular": "1.5.0",
+    "angular-mocks": "1.5.0",
+    "angular-route": "1.5.0"
   },
   "devDependencies": {
     "karma-chrome-launcher": "^0.2.2",
     "karma-jasmine": "^0.3.7"
   }
 }
+
