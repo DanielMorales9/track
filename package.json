@@ -1,0 +1,14 @@
+{
+  "name": "track",
+  "version": "1.0.0",
+  "description": "location service",
+  "main": "app.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "author": "Daniel Morales",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.13.4"
+  }
+}

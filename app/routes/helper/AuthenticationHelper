@@ -1,0 +1,14 @@
+function authHelper(req, res, next) {
+    var bearerToken;
+    var bearerHeader = req.headers["x-session-token"];
+    if (typeof bearerHeader !== 'undefined') {
+        var bearer = bearerHeader.split(" ");
+        bearerToken = bearer[1];
+        req.token = bearerToken;
+        next();
+    } else {
+        res.send({success: false});
+    }
+};
+
+module.exports = authHelper;
