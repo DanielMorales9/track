@@ -1,4 +1,4 @@
-var debug = require('debug')('track')
+var debug = require('debug')('track');
 var express = require('express');
 var path = require('path');
 var fs = require('fs');
@@ -15,8 +15,7 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 var auth = require('./routes/auth');
 var config = require("./config.json");
-var NotFoundError = require('./routes/errors/NotFoundError');
-//var utils = require(path.join('./routes/helper/Utils'));
+
 
 
 var app = express();
@@ -24,17 +23,17 @@ var app = express();
 /**
  * Environment Variable should be written here
  */
-process.env.MONGO_URL = 'mongodb://localhost:27017/track-me';
+process.env.MONGO_URL = 'mongodb://127.0.0.1/track-me';
 var HTTP_PORT = process.env.HTTP_PORT || 3000;
 var HTTPS_PORT = process.env.HTTPS_PORT || 3443;
 
 /**
  * HTTP & HTTPS Configuration
  */
-debug("Creating HTTP server on port: %s", HTTP_PORT);
-require('http').createServer(app).listen(HTTP_PORT, function () {
-    debug("HTTP Server listening on port: %s, in %s mode", HTTP_PORT, app.get('env'));
-});
+/*debug("Creating HTTP server on port: %s", HTTP_PORT);
+ require('http').createServer(app).listen(HTTP_PORT, function () {
+ debug("HTTP Server listening on port: %s, in %s mode", HTTP_PORT, app.get('env'));
+ });*/
 
 debug("Creating HTTPS server on port: %s", HTTPS_PORT);
 require('https').createServer({
@@ -67,9 +66,7 @@ app.use(function (req, res, next) {
     onFinished(res, function () {
         debug("[%s] finished request", req.connection.remoteAddress);
     });
-
     next();
-
 });
 
 /**
@@ -79,7 +76,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
 /**
- * Setting up http functionality
+ * Setting up HTTP functionality
  */
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -114,42 +111,15 @@ var jwtCheck = jwt({
 });
 jwtCheck.unless = unless;
 // unprotected path configuration
-app.use(jwtCheck.unless({path: ['/auth/login', '/auth/register'] }));
-//TODO Check this
-// app.use(utils.middleware().unless({path: ['/auth/login', '/auth/register'] }));
+app.use(jwtCheck.unless({path: ['/auth/verify', '/auth/login', '/auth/register', '/'] }));
 
 /**
- * Error Handler: Not Found 404
+ * Error handler
  */
-app.use(function(req, res, next) {
-    next(new NotFoundError("404"));
-});
-
-/**
- * Error Handler: Internal Server Error 500
- */
-app.use(function (err, req, res, next) {
-
-    var errorType = typeof err;
-    var code = 500;
-    var msg = { message: "Internal Server Error" };
-
-    switch (err.name) {
-        case "UnauthorizedError":
-            code = err.status;
-            msg = undefined;
-            break;
-        case "BadRequestError":
-        case "UnauthorizedAccessError":
-        case "NotFoundError":
-            code = err.status;
-            msg = err.inner;
-            break;
-        default:
-            break;
-    }
-    return res.status(code).json(msg);
-
+app.use(function(err, req, res, next) {
+    debug(err);
+    debug(req);
+    res.status(err.status || 500).send(err.message);
 });
 
 module.exports = app;

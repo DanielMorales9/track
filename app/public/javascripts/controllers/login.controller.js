@@ -19,7 +19,7 @@ angular
             else {
                 console.log(response.data.message);
                 switch (response.data.message) {
-                    case "Incorrect email/password":
+                    case "Incorrect email or password":
                         ctrl.errorMessage = response.data.message;
                         break;
                     default:

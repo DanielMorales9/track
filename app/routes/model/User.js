@@ -1,7 +1,11 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+var debug = require('debug')('track:model:user');
 var bcrypt = require('bcryptjs');
 
+/**
+ * User Schema
+ */
 var UserSchema = new Schema({
     email: {
         type:String,
@@ -18,6 +22,9 @@ var UserSchema = new Schema({
     friends : [{ type: Schema.Types.ObjectId, ref: 'User' }]
 });
 
+/**
+ * Enables password hashing before saving it
+ */
 UserSchema.pre('save', function (next) {
     var user = this;
     if (this.isModified('password') || this.isNew) {
@@ -38,6 +45,11 @@ UserSchema.pre('save', function (next) {
     }
 });
 
+/**
+ * Schema Plugin to enable authentication
+ * @param passw sent password
+ * @param cb
+ */
 UserSchema.methods.comparePassword = function (passw, cb) {
     bcrypt.compare(passw, this.password, function (err, isMatch) {
         if (err) {
