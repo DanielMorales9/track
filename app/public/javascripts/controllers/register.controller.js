@@ -13,6 +13,7 @@ angular
             if(response.data.success) {
                 ctrl.user = response.data.user;
                 var token = response.data.token;
+                console.log(token);
                 ctrl.submitted = true;
                 $location.path('/home');
                 AuthenticationService.setToken(token);

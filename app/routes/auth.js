@@ -123,7 +123,6 @@ router.route("/login").post(function authentication(req, res, next) {
 
 /**
  * REGISTRATION API
- * Tested with POSTMAN
  */
 router.post('/register', function(req, res, next) {
     //user info check

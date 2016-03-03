@@ -17,7 +17,7 @@ describe('AuthenticationService', function () {
             user: {
                 email: 'dnlmrls9@gmail.com',
                 firstName: 'Daniel',
-                lastName: 'Morales',
+                lastName: 'Morales'
             },
             token: 'xxx'
         };

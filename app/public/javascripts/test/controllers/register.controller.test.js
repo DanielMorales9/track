@@ -15,7 +15,7 @@ describe('RegistrationController', function () {
             user: {
                 email: 'dnlmrls9@gmail.com',
                 firstName: 'Daniel',
-                lastName: 'Morales',
+                lastName: 'Morales'
             },
             token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9' +
             '.eyJlbWFpbCI6ImRubG1ybHM5QGdtYWlsLmNvbSIsImZpcnN0TmFtZS' +

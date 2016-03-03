@@ -32,9 +32,11 @@ angular
             var user = $localStorage.getObject('user');
             if (Object.keys(user).length == 0) {
                 var token = $localStorage.get('token');
+
                 if (typeof token !== 'undefined') {
                     var encoded = token.split('.')[1];
-                    user = JSON.parse(_urlBase64Decode(encoded))._doc;
+                    var base64 = _urlBase64Decode(encoded);
+                    user = JSON.parse(base64);
                     $localStorage.setObject('user', user);
                 }
                 else {
